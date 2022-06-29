@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Time of War</title>
+    <link rel="shortcut icon" href="./img/icon.png">
+
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/fonts.css">
+    <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="css/ui.css">
+    <link rel="stylesheet" href="css/ingameUI.css">
+
+    <script src="https://kit.fontawesome.com/f25033f0ac.js" crossorigin="anonymous"></script> <!-- Font Awesome  -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tween.js/18.6.4/tween.umd.js"></script> <!-- TweenJS  -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script> <!-- ThreeJS  -->
+    <script src="./libs/three.js"></script>
+    <script src="https://cdn.rawgit.com/mrdoob/three.js/master/examples/js/renderers/CSS2DRenderer.js"></script>
+    <!-- CSS2DRenderer -->
+    <script src="https://cdn.socket.io/4.5.0/socket.io.min.js"
+        integrity="sha384-7EyYLQZgWBi67fBtVxw60/OWl1kjsfrPFcaU0pp0nAh+i8FD068QogUvg85Ewy1k"
+        crossorigin="anonymous"></script> <!-- Socket.io  -->
+    <script src="https://threejs.org/examples/js/loaders/FBXLoader.js"></script>
+    <script src="./libs/fflate.min.js"></script>
+    <script src="./libs/SkeletonUtils.js"></script>
+
+    <script src="./Game.js"></script>
+    <script src="./Ui.js"></script>
+    <script src="./Net.js"></script>
+    <script src="./Points.js"></script>
+    <script src="./Upgrades.js"></script>
+    <script src="./Units.js"></script>
+    <script src="./Main.js"></script>
+    <script src="./objects/Tower.js"></script>
+    <script src="./objects/Unit.js"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+    <div id="loginScreen">
+        <div id="loginBox">
+            <h1>Time of War</h1>
+
+            <div id="inputs">
+                <div id="input">
+                    <input id="usernameInput" type="text" placeholder="username">
+                    <span id="emptyUsername">*</span>
+                </div>
+                <button onclick="ui.login()">Play</button>
+                <span id="errorLoginMessage"></span>
+            </div>
+
+            <div id="waitingScreen">
+                <h2>Waiting for second player to join</h2>
+                <i class="fas fa-circle-notch fa-spin"></i>
+            </div>
+            <div id="loadingScreen">
+                <h2>Loading models<h2>
+                <i class="fas fa-circle-notch fa-spin"></i>
+            </div>
+        </div>
+    </div>
+
+    <div id="ui">
+        <div id="points">
+            <img src="./img/coin.png" alt="coin">
+            &#160;
+            <span id="pointsValue">0</span>
+            &#160;&#160;
+            <div>+<span id="pointsSpeed">0</span>/s</div>
+        </div>
+
+        <div id="units">
+            <div style="margin-top: 5px;">
+                <img id="unitSpawnCostCoin" src="./img/coin.png" alt="coin">
+                <span id="unitSpawnCost"></span>
+            </div>
+
+            <div>
+                <button onClick="game.spawnPlayerUnit('gladiator')">
+                    <img src="./img/sword.png" alt="sword">
+                </button>
+
+                <button onClick="game.spawnPlayerUnit('tank')">
+                    <img src="./img/shield.png" alt="shield">
+                </button>
+
+                <button onClick="game.spawnPlayerUnit('assassin')">
+                    <img style="width: 60px; height: 60px;" src="./img/shoe.png" alt="winged shoe">
+                </button>
+            </div>
+        </div>
+
+        <div id="upgradesMenu">
+            <span id="upgradesToggle" onClick="ui.toggleUpgrades()">Upgrades</span>
+            <hr>
+            <div id="upgradesList">
+                <div class="upgradeBlock">
+                    <h1 style="color: #ecc74d;">Points</h1>
+                    <p>Points per second: <span id="currentPointsSpeed">0</span></p>
+                    <button id="pointsUpgradeButton" onclick="upgrades.upgrade(this)">
+                        <span id="pointsUpgradeCost">0</span> points
+                    </button>
+                </div>
+
+                <div class="upgradeBlock">
+                    <h1 style="color: #ec4d4d;">Gladiator</h1>
+                    <p>Attack: <span id="gladiatorAttack">0</span></p>
+                    <p>Health: <span id="gladiatorHealth">0</span></p>
+                    <p>Speed: <span id="gladiatorSpeed">0</span></p>
+                    <p>Level: <span id="gladiatorLevel">0</span></p>
+                    <button id="gladiatorUpgradeButton" onclick="upgrades.upgrade(this)">
+                        <span id="gladiatorUpgradeCost">0</span> points
+                    </button>
+                </div>
+
+                <div class="upgradeBlock">
+                    <h1 style="color: #4d77ec;">Tank</h1>
+                    <p>Attack: <span id="tankAttack">0</span></p>
+                    <p>Health: <span id="tankHealth">0</span></p>
+                    <p>Speed: <span id="tankSpeed">0</span></p>
+                    <p>Level: <span id="tankLevel">0</span></p>
+                    <button id="tankUpgradeButton" onclick="upgrades.upgrade(this)">
+                        <span id="tankUpgradeCost">1000</span> points
+                    </button>
+                </div>
+
+                <div class="upgradeBlock">
+                    <h1 style="color: #5aec4d;">Assassin</h1>
+                    <p>Attack: <span id="assassinAttack">0</span></p>
+                    <p>Health: <span id="assassinHealth">0</span></p>
+                    <p>Speed: <span id="assassinSpeed">0</span></p>
+                    <p>Level: <span id="assassinLevel">0</span></p>
+                    <button id="assassinUpgradeButton" onclick="upgrades.upgrade(this)">
+                        <span id="assassinUpgradeCost">1000</span> points
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="gameEnded">
+            <img id="gameEndedImage" src="" alt="Game ended screen">
+        </div>
+    </div>
+</body>
+
+</html>

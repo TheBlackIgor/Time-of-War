@@ -1,0 +1,55 @@
+.towerHealthBar {
+    margin-top: -260px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 4;
+}
+
+.towerHealthBar p {
+    font-size: 1.5em;
+}
+
+.towerHealthBarOutside {
+    margin-top: -120px;
+    width: 50px;
+    height: 300px;
+    border: 2px solid black;
+    transform: rotate(-90deg);
+}
+
+.towerHealthBarInside {
+    width: 100%;
+    height: 100%;
+    background-color: red;
+}
+
+.unitHealthBar {
+    margin-top: -50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.unitHealthBar p {
+    z-index: 1;
+}
+
+.unitLevel {
+    font-size: bold;
+    margin-bottom: 15px;
+}
+
+.unitHealthBarOutside {
+    margin-top: -60px;
+    width: 20px;
+    height: 100px;
+    border: 2px solid black;
+    transform: rotate(-90deg);
+}
+
+.unitHealthBarInside {
+    width: 100%;
+    height: 100%;
+    background-color: red;
+}

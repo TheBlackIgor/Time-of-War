@@ -1,0 +1,193 @@
+#loginScreen {
+    width: 100%;
+    height: 100vh;
+
+    position: absolute;
+    top: 0;
+
+    display: flex;
+    justify-content: center;
+
+    background-image: url("../img/loginBackground.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    z-index: 10;
+}
+
+#loginBox {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    font-family: 'Cinzel', serif;
+}
+
+#loginBox h1 {
+    margin-top: 220px;
+    font-size: 10rem;
+    font-weight: 800;
+    background-image: linear-gradient(to right,
+            #d8b84f 0,
+            #eed971 50%,
+            #d8b84f 100%);
+    color: transparent;
+    text-align: center;
+    -webkit-background-clip: text;
+}
+
+#loginBox #inputs {
+    display: none;
+    position: relative;
+    margin-top: 100px;
+    flex-direction: column;
+    align-items: center;
+}
+
+#loginBox #inputs #usernameInput {
+    position: relative;
+    margin-bottom: 40px;
+    width: 100%;
+    min-height: 44px;
+    font-size: 24px;
+    line-height: 28px;
+    padding: 8px 16px;
+    background-color: rgb(10, 10, 10);
+    border: 2px solid #8b711a;
+    border-radius: 15px;
+    outline: none;
+    transition: border 200ms ease-in-out;
+    color: white;
+    text-align: center;
+}
+
+#loginBox #inputs #usernameInput:focus {
+    border-color: #d1a515;
+}
+
+#loginBox #inputs #usernameInput:disabled {
+    background-color: rgb(197, 197, 197);
+}
+
+#loginBox #inputs #input {
+    display: flex;
+    flex-direction: row;
+}
+
+#loginBox #inputs #emptyUsername {
+    position: absolute;
+    right: 10px;
+    top: 5px;
+    font-size: 2em;
+    color: #d1a515;
+    display: none;
+}
+
+#loginBox #inputs button {
+    width: 180px;
+    height: 50px;
+    border: none;
+    outline: none;
+    color: #fff;
+    cursor: pointer;
+    position: relative;
+    z-index: 0;
+    border-radius: 10px;
+    font-size: 1.5em;
+}
+
+#loginBox #inputs button:before {
+    content: '';
+    background: linear-gradient(45deg, #ce8b0f, #ffe97d, #ce8b0f);
+    position: absolute;
+    top: -4px;
+    left: -4px;
+    background-size: 400%;
+    z-index: -1;
+    filter: blur(8px);
+    width: calc(100% + 8px);
+    height: calc(100% + 8px);
+    animation: glowing 10s linear infinite;
+    opacity: 0.25;
+    transition: opacity .2s ease-in-out;
+    border-radius: 10px;
+}
+
+#loginBox #inputs button:active:after {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+#loginBox #inputs button:hover:before {
+    opacity: 1;
+}
+
+#loginBox #inputs button:after {
+    z-index: -1;
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(10, 10, 10);
+    left: 0;
+    top: 0;
+    border-radius: 10px;
+    transition: background 50ms ease-in-out;
+}
+
+@keyframes glowing {
+    0% {
+        background-position: 0 0;
+    }
+
+    50% {
+        background-position: 400% 0;
+    }
+
+    100% {
+        background-position: 0 0;
+    }
+}
+
+#loginBox #inputs #errorLoginMessage {
+    margin-top: 20px;
+    color: #d1a515;
+}
+
+#loginBox #waitingScreen,
+#loginBox #loadingScreen {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 110px;
+}
+
+#loginBox #waitingScreen h2,
+#loginBox #loadingScreen h2 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    background-image: linear-gradient(to right,
+            #d6a02b 0,
+            #e2cb54 50%,
+            #d6a02b 100%);
+    color: transparent;
+    -webkit-background-clip: text;
+    text-align: center;
+}
+
+#loginBox #waitingScreen i,
+#loginBox #loadingScreen i {
+    font-size: 5em;
+    margin-bottom: 20px;
+    background-image: linear-gradient(to right,
+            #d6a02b 0,
+            #e2cb54 50%,
+            #d6a02b 100%);
+    color: transparent;
+    -webkit-background-clip: text;
+}
+
+#loginBox #loadingScreen i {
+    font-size: 2em;
+}
